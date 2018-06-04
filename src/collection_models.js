@@ -4,8 +4,11 @@ export var collection_tables = {
       {Header: 'Status', accessor: 'status'},
       {Header: 'IP', accessor: 'ip'},
       {Header: 'Source', accessor: 'source', sortable: false},
+      {Header: 'Created', accessor: 'created'},
+      {Header: 'Last Modified', accessor: 'modified'},
     ],
-    fieldset: ['source', 'ip', 'status'],
-    fieldToValue: (x) => { return {'status': x['status'], 'ip': x['ip'], 'source': x['source'][0]['name']}}
-  }
+    fieldset: ['source', 'ip', 'status', 'created', 'modified'],
+    fieldToValue: (x) => { return {'status': x['status'], 'ip': x['ip'], 'source': x['source'][0]['name'],
+                                   'created': x['created'], 'modified': x['modified']}}
+  },
 };
