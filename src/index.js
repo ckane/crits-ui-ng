@@ -5,6 +5,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import './index.css';
 import 'react-table/react-table.css';
 import {crits_uri} from './config.js';
+import {collection_tables} from './collection_models.js';
 
 function getCookie(cname) {
   var name = cname + "=";
@@ -105,19 +106,19 @@ class Login extends React.Component {
   };
 };
 
-class IPsView extends React.Component {
+class CRITSDataView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {ips: [], loading: false, pages: -1};
+    this.state = {dataset: [], loading: false, pages: -1};
   };
   populateData(xhr, pe) {
     if(xhr.readyState === 4) {
       if(xhr.status === 200) {
-        var ip_list = JSON.parse(xhr.responseText);
+        var dataset_list = JSON.parse(xhr.responseText);
 
 	this.setState({
-		'ips': ip_list.objects.map(function (x) { var v = {'status': x['status'], 'ip': x['ip'], 'source': x['source'][0]['name']}; return v; }),
-		'pages': Math.ceil(ip_list.total_count / xhr.table_state),
+		'dataset': dataset_list.objects.map(collection_tables[this.props.collection].fieldToValue),
+		'pages': Math.ceil(dataset_list.total_count / xhr.table_state),
 		'loading': false,
 	});
       };
@@ -134,7 +135,7 @@ class IPsView extends React.Component {
   }
   fetchData(state, inst) {
     var xhr = new XMLHttpRequest();
-    var query_uri = crits_uri + "api/v1/ips/?";
+    var query_uri = crits_uri + "api/v1/" + this.props.collection + "/?";
 
     // Limit results by page size
     query_uri = query_uri + "limit=" + state.pageSize.toString();
@@ -149,6 +150,11 @@ class IPsView extends React.Component {
 		                       ).map((x) => { return (x.desc ? '-' + x.id : x.id) }).join(',')
     }
 
+    if(collection_tables[this.props.collection].fieldset.length > 0) {
+      query_uri = query_uri + "&only=";
+      query_uri = query_uri + collection_tables[this.props.collection].fieldset.join(',');
+    }
+
     xhr.open("GET", query_uri, true);
     xhr.withCredentials = true;
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
@@ -158,14 +164,10 @@ class IPsView extends React.Component {
     xhr.send(null);
   };
   render() {
-    var columns = [
-      {Header: 'Status', accessor: 'status'},
-      {Header: 'IP', accessor: 'ip'},
-      {Header: 'Source', accessor: 'source', sortable: false},
-    ];
+    var columns = collection_tables[this.props.collection].columns;
     return (
       <ReactTable
-	data={this.state.ips}
+	data={this.state.dataset}
 	columns={columns}
 	loading={this.state.loading}
 	manual
@@ -187,7 +189,7 @@ const CRITSApp = () => (
   <div>
    <Route path="/login" component={Login} />
    <Route path="/about" component={About} />
-   <Route path="/ips" component={IPsView} />
+   <Route path="/ips" component={() => (<CRITSDataView collection="ips" />)} />
   </div>
 );
 
