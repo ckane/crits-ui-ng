@@ -138,12 +138,12 @@ class IPsView extends React.Component {
 
     if(state.sorted.length > 0) {
       query_uri = query_uri + "&sort=";
-      query_uri = query_uri + state.sorted.filter(function(y) {
+      query_uri = query_uri + state.sorted.filter((y) => {
 	                                     if(y.id === "source") {
 				               return {'id': 'source.name', 'desc': y.desc};
 					     }
 					     return y;
-					   }).map(function (x) {
+					   }).map((x) => {
 	                                               if(x.desc) {
 				                         return '-' + x.id;
 					               }
