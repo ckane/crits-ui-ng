@@ -190,6 +190,7 @@ const CRITSApp = () => (
    <Route path="/login" component={Login} />
    <Route path="/about" component={About} />
    <Route path="/ips" component={() => (<CRITSDataView collection="ips" />)} />
+   <Route path="/indicators" component={() => (<CRITSDataView collection="indicators" />)} />
   </div>
 );
 
