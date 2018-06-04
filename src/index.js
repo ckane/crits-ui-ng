@@ -126,6 +126,7 @@ class IPsView extends React.Component {
   failData(xhr, pe) {
     console.error("Failed to get data! " + xhr.statusText);
   };
+
   fetchData(state, inst) {
     var xhr = new XMLHttpRequest();
     var query_uri = crits_uri + "api/v1/ips/?";
@@ -163,7 +164,7 @@ class IPsView extends React.Component {
     var columns = [
       {Header: 'Status', accessor: 'status'},
       {Header: 'IP', accessor: 'ip'},
-      {Header: 'Source', accessor: 'source'},
+      {Header: 'Source', accessor: 'source', sortable: false},
     ];
     return (
       <ReactTable
