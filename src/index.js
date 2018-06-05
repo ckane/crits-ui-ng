@@ -109,7 +109,7 @@ class Login extends React.Component {
 class CRITSDataView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {dataset: [], loading: false, pages: -1};
+    this.state = {dataset: [], loading: false, pages: -1, table_size: 0};
   };
   populateData(xhr, pe) {
     if(xhr.readyState === 4) {
@@ -118,7 +118,7 @@ class CRITSDataView extends React.Component {
 
 	this.setState({
 		'dataset': dataset_list.objects.map(collection_tables[this.props.collection].fieldToValue),
-		'pages': Math.ceil(dataset_list.total_count / xhr.table_state),
+		'pages': Math.ceil(dataset_list.meta.total_count / this.state.table_size),
 		'loading': false,
 	});
       };
@@ -160,7 +160,7 @@ class CRITSDataView extends React.Component {
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     xhr.onload = this.populateData.bind(this, xhr);
     xhr.onerror = this.failData.bind(this, xhr);
-    xhr.table_state = state;
+    this.setState({table_size: state.pageSize});
     xhr.send(null);
   };
   render() {
