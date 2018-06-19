@@ -109,7 +109,7 @@ class Login extends React.Component {
 class CRITSDataView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {dataset: [], loading: false, pages: -1, table_size: 0};
+    this.state = {dataset: [], loading: false, pages: -1, table_size: 0, page_offset: 0};
   };
   populateData(xhr, pe) {
     if(xhr.readyState === 4) {
