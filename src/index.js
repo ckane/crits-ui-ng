@@ -189,8 +189,14 @@ const CRITSApp = () => (
   <div>
    <Route path="/login" component={Login} />
    <Route path="/about" component={About} />
-   <Route path="/ips" component={() => (<CRITSDataView collection="ips" />)} />
-   <Route path="/indicators" component={() => (<CRITSDataView collection="indicators" />)} />
+   {
+       /* Iterate across the data sets configured in collection_tables, and create
+	* appropriate routes for them.
+	*/
+       Object.keys(collection_tables).map(function(coll) {
+	       return (<Route path={"/" + coll} component={() => (<CRITSDataView collection={coll} />)} />);
+       })
+   }
   </div>
 );
 
