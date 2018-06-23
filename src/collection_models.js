@@ -8,8 +8,9 @@ export var collection_tables = {
       {Header: 'Last Modified', accessor: 'modified'},
     ],
     fieldset: ['source', 'ip', 'status', 'created', 'modified'],
-    fieldToValue: (x) => { return {'status': x['status'], 'ip': x['ip'], 'source': x['source'][0]['name'],
-                                   'created': x['created'], 'modified': x['modified']}}
+    fieldToValue: (x) => { return {'status': x['status'], 'ip': x['ip'],
+	                           'source': x['source'].map(function(y) { return y['name']}).join(', '),
+                                   'created': x['created'], 'modified': x['modified']}},
   },
   indicators: {
     columns: [
@@ -21,7 +22,8 @@ export var collection_tables = {
       {Header: 'Last Modified', accessor: 'modified'},
     ],
     fieldset: ['source', 'value', 'ind_type', 'status', 'created', 'modified'],
-    fieldToValue: (x) => { return {'status': x['status'], 'value': x['value'], 'source': x['source'][0]['name'],
-                                   'created': x['created'], 'modified': x['modified'], 'type': x['type']}}
+    fieldToValue: (x) => { return {'status': x['status'], 'value': x['value'],
+	                           'source': x['source'].map(function(y) { return y['name']}).join(', '),
+                                   'created': x['created'], 'modified': x['modified'], 'type': x['type']}},
   },
 };
