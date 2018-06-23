@@ -125,7 +125,7 @@ class CRITSDataView extends React.Component {
 		      return y.field_name;
 	      }
 	      return y.accessor;}).indexOf(fname) >= 0) {
-        var col = coll.columns.filter(are_eq.bind(null, fname)/*(y) => { return y.accessor === fname; }*/)[0];
+        var col = coll.columns.filter(are_eq.bind(null, fname))[0];
         if(Object.keys(col).indexOf('toValue') >= 0) {
           vobj[col.accessor] = col.toValue(x[fname]);
         } else {
