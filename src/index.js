@@ -111,13 +111,37 @@ class CRITSDataView extends React.Component {
     super(props);
     this.state = {dataset: [], loading: false, pages: -1, table_size: 0, page_offset: 0};
   };
+
+  fieldToValue(coll, x) {
+    var vobj = {};
+    var are_eq = (a, b) => { if(Object.keys(b).indexOf('field_name') >= 0) {
+	                       return a === b.field_name;
+	                     }
+	                     return a === b.accessor;
+                           };
+    for (var fname in x) {
+      if(coll.columns.map((y) => {
+	      if(Object.keys(y).indexOf('field_name') >= 0) {
+		      return y.field_name;
+	      }
+	      return y.accessor;}).indexOf(fname) >= 0) {
+        var col = coll.columns.filter(are_eq.bind(null, fname)/*(y) => { return y.accessor === fname; }*/)[0];
+        if(Object.keys(col).indexOf('toValue') >= 0) {
+          vobj[col.accessor] = col.toValue(x[fname]);
+        } else {
+          vobj[col.accessor] = x[fname];
+	}
+      }
+    }
+    return vobj;
+  };
   populateData(xhr, pe) {
     if(xhr.readyState === 4) {
       if(xhr.status === 200) {
         var dataset_list = JSON.parse(xhr.responseText);
 
 	this.setState({
-		'dataset': dataset_list.objects.map(collection_tables[this.props.collection].fieldToValue),
+		'dataset': dataset_list.objects.map(this.fieldToValue.bind(null, collection_tables[this.props.collection])),
 		'pages': Math.ceil(dataset_list.meta.total_count / this.state.table_size),
 		'loading': false,
 	});
