@@ -11,6 +11,7 @@ export var collection_tables = {
     fieldToValue: (x) => { return {'status': x['status'], 'ip': x['ip'],
 	                           'source': x['source'].map(function(y) { return y['name']}).join(', '),
                                    'created': x['created'], 'modified': x['modified']}},
+    collection_title: "IPs"
   },
   indicators: {
     columns: [
@@ -25,5 +26,6 @@ export var collection_tables = {
     fieldToValue: (x) => { return {'status': x['status'], 'value': x['value'],
 	                           'source': x['source'].map(function(y) { return y['name']}).join(', '),
                                    'created': x['created'], 'modified': x['modified'], 'type': x['type']}},
+    collection_title: "Indicators"
   },
 };
