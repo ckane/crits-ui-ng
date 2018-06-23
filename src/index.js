@@ -218,7 +218,7 @@ const CRITSApp = () => (
 	* appropriate routes for them.
 	*/
        Object.keys(collection_tables).map(function(coll) {
-	       return (<Route path={"/" + coll} component={() => (<CRITSDataView collection={coll} />)} />);
+	       return (<Route key={coll} path={"/" + coll} component={() => (<CRITSDataView collection={coll} />)} />);
        })
    }
   </div>
