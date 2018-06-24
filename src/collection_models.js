@@ -30,7 +30,7 @@ export var collection_tables = {
     columns: [
       {Header: 'Domain', accessor: 'domain'},
       {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x.map(function(y) { return y['name']}).join(', ')}},
+	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
       {Header: 'Created', accessor: 'created'},
       {Header: 'Last Modified', accessor: 'modified'},
       {Header: 'Status', accessor: 'status'},
@@ -42,7 +42,7 @@ export var collection_tables = {
     columns: [
       {Header: 'IP', accessor: 'ip'},
       {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x.map(function(y) { return y['name']}).join(', ')}},
+	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
       {Header: 'Created', accessor: 'created'},
       {Header: 'Last Modified', accessor: 'modified'},
       {Header: 'Status', accessor: 'status'},
@@ -55,7 +55,7 @@ export var collection_tables = {
       {Header: 'Value', accessor: 'value'},
       {Header: 'Type', accessor: 'type'},
       {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x.map(function(y) { return y['name']}).join(', ')}},
+	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
       {Header: 'Created', accessor: 'created'},
       {Header: 'Last Modified', accessor: 'modified'},
       {Header: 'Status', accessor: 'status'},
