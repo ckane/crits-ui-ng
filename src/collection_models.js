@@ -38,6 +38,20 @@ export var collection_tables = {
     fieldset: ['source', 'domain', 'status', 'created', 'modified'],
     collection_title: "Domains"
   },
+  emails: {
+    columns: [
+      {Header: 'From', accessor: 'from'},
+      {Header: 'Recip', accessor: 'to',
+			 toValue: function(x) { return (x['to'].length) + (x['cc'].length); }},
+      {Header: 'Subject', accessor: 'subject'},
+      {Header: 'Date', accessor: 'date'},
+      {Header: 'Source', accessor: 'source', sortable: false,
+	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
+      {Header: 'Status', accessor: 'status'},
+    ],
+    fieldset: ['from_address', 'to', 'cc', 'subject', 'date', 'source', 'status'],
+    collection_title: "Emails"
+  },
   ips: {
     columns: [
       {Header: 'IP', accessor: 'ip'},
