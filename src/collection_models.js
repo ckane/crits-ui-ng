@@ -3,13 +3,8 @@ export var collection_tables = {
     columns: [
       {Header: 'Name', accessor: 'name'},
       {Header: 'Description', accessor: 'description'},
-      {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x.map(function(y) { return y['name']}).join(', ')}},
-      {Header: 'Created', accessor: 'created'},
-      {Header: 'Last Modified', accessor: 'modified'},
-      {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['source', 'name', 'description', 'status', 'created', 'modified'],
+    fieldset: ['name', 'description'],
     collection_title: "Actors"
   },
   backdoors: {
@@ -17,25 +12,15 @@ export var collection_tables = {
       {Header: 'Name', accessor: 'name'},
       {Header: 'Description', accessor: 'description'},
       {Header: 'Version', accessor: 'version'},
-      {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x.map(function(y) { return y['name']}).join(', ')}},
-      {Header: 'Created', accessor: 'created'},
-      {Header: 'Last Modified', accessor: 'modified'},
-      {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['source', 'name', 'description', 'version', 'status', 'created', 'modified'],
+    fieldset: ['name', 'description', 'version'],
     collection_title: "Backdoors"
   },
   domains: {
     columns: [
       {Header: 'Domain', accessor: 'domain'},
-      {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
-      {Header: 'Created', accessor: 'created'},
-      {Header: 'Last Modified', accessor: 'modified'},
-      {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['source', 'domain', 'status', 'created', 'modified'],
+    fieldset: ['domain'],
     collection_title: "Domains"
   },
   emails: {
@@ -45,24 +30,16 @@ export var collection_tables = {
 			 toValue: function(x) { return (x['to'].length) + (x['cc'].length); }},
       {Header: 'Subject', accessor: 'subject'},
       {Header: 'Date', accessor: 'date'},
-      {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
-      {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['from_address', 'to', 'cc', 'subject', 'date', 'source', 'status'],
+    fieldset: ['from_address', 'to', 'cc', 'subject', 'date'],
     collection_title: "Emails"
   },
   events: {
     columns: [
       {Header: 'Title', accessor: 'title'},
       {Header: 'Event Type', accessor: 'event_type'},
-      {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
-      {Header: 'Created', accessor: 'created'},
-      {Header: 'Last Modified', accessor: 'modified'},
-      {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['source', 'title', 'event_type', 'status', 'created', 'modified'],
+    fieldset: ['title', 'event_type', 'status'],
     collection_title: "Events"
   },
   exploits: {
@@ -76,32 +53,22 @@ export var collection_tables = {
       {Header: 'Last Modified', accessor: 'modified'},
       {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['source', 'name', 'cve', 'description', 'status', 'created', 'modified'],
+    fieldset: ['name', 'cve', 'description'],
     collection_title: "Exploits"
   },
   ips: {
     columns: [
       {Header: 'IP', accessor: 'ip'},
-      {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
-      {Header: 'Created', accessor: 'created'},
-      {Header: 'Last Modified', accessor: 'modified'},
-      {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['source', 'ip', 'status', 'created', 'modified'],
+    fieldset: ['ip'],
     collection_title: "IPs"
   },
   indicators: {
     columns: [
       {Header: 'Value', accessor: 'value'},
       {Header: 'Type', accessor: 'type'},
-      {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
-      {Header: 'Created', accessor: 'created'},
-      {Header: 'Last Modified', accessor: 'modified'},
-      {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['source', 'value', 'ind_type', 'status', 'created', 'modified'],
+    fieldset: ['value', 'ind_type'],
     collection_title: "Indicators"
   },
   pcaps: {
@@ -109,13 +76,8 @@ export var collection_tables = {
       {Header: 'Filename', accessor: 'filename'},
       {Header: 'Description', accessor: 'description'},
       {Header: 'Length', accessor: 'length'},
-      {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
-      {Header: 'Created', accessor: 'created'},
-      {Header: 'Last Modified', accessor: 'modified'},
-      {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['source', 'filename', 'length', 'description', 'status', 'created', 'modified'],
+    fieldset: ['filename', 'length', 'description'],
     collection_title: "PCAPs"
   },
   raw_data: {
@@ -123,13 +85,8 @@ export var collection_tables = {
       {Header: 'Title', accessor: 'title'},
       {Header: 'Data Type', accessor: 'data_type'},
       {Header: 'Version', accessor: 'version'},
-      {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
-      {Header: 'Created', accessor: 'created'},
-      {Header: 'Last Modified', accessor: 'modified'},
-      {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['source', 'title', 'data_type', 'version', 'status', 'created', 'modified'],
+    fieldset: ['title', 'data_type', 'version'],
     collection_title: "Raw Data"
   },
   samples: {
@@ -137,13 +94,8 @@ export var collection_tables = {
       {Header: 'Filename', accessor: 'filename'},
       {Header: 'Size', accessor: 'size'},
       {Header: 'Filetype', accessor: 'filetype'},
-      {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
-      {Header: 'Added', accessor: 'created'},
-      {Header: 'Last Modified', accessor: 'modified'},
-      {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['source', 'filename', 'filetype', 'size', 'status', 'created', 'modified'],
+    fieldset: ['filename', 'filetype', 'size'],
     collection_title: "Samples"
   },
   signatures: {
@@ -155,14 +107,9 @@ export var collection_tables = {
       {Header: 'Data Type Max Version', accessor: 'data_type_max_version'},
       {Header: 'Data Type Dependency', accessor: 'data_type_dependency',
 				  toValue: function(x) { return x['data_type_dependency'].join(', '); }},
-      {Header: 'Source', accessor: 'source', sortable: false,
-	        toValue: function(x) { return x['source'].map(function(y) { return y['name']}).join(', ')}},
-      {Header: 'Added', accessor: 'created'},
-      {Header: 'Last Modified', accessor: 'modified'},
-      {Header: 'Status', accessor: 'status'},
     ],
-    fieldset: ['source', 'title', 'data_type', 'version', 'data_type_min_version', 'data_type_max_version',
-			         'data_type_dependency', 'status', 'created', 'modified'],
+    fieldset: ['title', 'data_type', 'version', 'data_type_min_version', 'data_type_max_version',
+			         'data_type_dependency'],
     collection_title: "Signatures"
   },
 };

@@ -106,6 +106,37 @@ class Login extends React.Component {
   };
 };
 
+function CRITsCollectionObject(coll) {
+  var entity = {
+    /* Base Entity params that all collections will display. */
+    columns: [
+      {Header: 'Source', accessor: 'source', sortable: false,
+       toValue: function(x) { return x.source.map(function(y) { return y['name']}).join(', ')}},
+      {Header: 'Added', accessor: 'created'},
+      {Header: 'Last Modified', accessor: 'modified'},
+      {Header: 'Status', accessor: 'status'},
+    ],
+    fieldset: ['source', 'created', 'modified', 'status'],
+    collection_title: 'FORGOT TO SET collection_title', /* Quick message to highlight when title is left out. */
+  };
+
+  if(Object.keys(coll).indexOf('columns') >= 0) {
+    /* If additional columns are present, then prepend them. */
+    entity.columns = coll.columns.concat(entity.columns);
+  };
+
+  if(Object.keys(coll).indexOf('fieldset') >= 0) {
+    /* If additional field filters are present, then include them. */
+    entity.fieldset = entity.fieldset.concat(coll.fieldset);
+  };
+
+  if(Object.keys(coll).indexOf('collection_title') >= 0) {
+    entity.collection_title = coll.collection_title;
+  };
+
+  return entity;
+};
+
 class CRITSDataView extends React.Component {
   constructor(props) {
     super(props);
@@ -141,7 +172,8 @@ class CRITSDataView extends React.Component {
         var dataset_list = JSON.parse(xhr.responseText);
 
 	this.setState({
-		'dataset': dataset_list.objects.map(this.fieldToValue.bind(null, collection_tables[this.props.collection])),
+		'dataset': dataset_list.objects.map(this.fieldToValue.bind(null,
+			     CRITsCollectionObject(collection_tables[this.props.collection]))),
 		'pages': Math.ceil(dataset_list.meta.total_count / this.state.table_size),
 		'loading': false,
 	});
@@ -174,9 +206,10 @@ class CRITSDataView extends React.Component {
 		                       ).map((x) => { return (x.desc ? '-' + x.id : x.id) }).join(',')
     }
 
-    if(collection_tables[this.props.collection].fieldset.length > 0) {
+    var coll_table = CRITsCollectionObject(collection_tables[this.props.collection]);
+    if(coll_table.fieldset.length > 0) {
       query_uri = query_uri + "&only=";
-      query_uri = query_uri + collection_tables[this.props.collection].fieldset.join(',');
+      query_uri = query_uri + coll_table.fieldset.join(',');
     }
 
     xhr.open("GET", query_uri, true);
@@ -188,7 +221,8 @@ class CRITSDataView extends React.Component {
     xhr.send(null);
   };
   render() {
-    var columns = collection_tables[this.props.collection].columns;
+    var coll_table = CRITsCollectionObject(collection_tables[this.props.collection]);
+    var columns = coll_table.columns;
     return (
       <ReactTable
 	data={this.state.dataset}
